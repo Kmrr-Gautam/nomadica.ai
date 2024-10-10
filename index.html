@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomadica AI</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            scroll-behavior: smooth;
+            background: url('Backgroung/WhatsApp Image 2024-09-01 at 19.34.54_b5e61c4b.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        header nav {
+            position: absolute;
+            top: 1rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            z-index: 10;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        header nav ul li a:hover {
+            color: #ff6f61;
+            transform: scale(1.1);
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            position: absolute;
+            top: 6rem;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .search-container input[type="text"] {
+            width: calc(100% - 120px);
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #ff6f61;
+        }
+
+        .search-container button {
+            width: 100px;
+            padding: 1rem;
+            border: none;
+            background: #ff6f61;
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background: #d83f5d;
+        }
+        
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            color: white;
+            background: #ff6f61;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .cta-button:hover {
+            background: #d83f5d;
+            transform: scale(1.05);
+        }
+        
+
+        section {
+            padding: 6rem 2rem;
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 1200px;
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            color: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .feature:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #screenshots {
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+        }
+
+        .screenshots-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem 0;
+            gap: 1rem;
+        }
+
+        .screenshots-container img {
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshots-container img:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: #ff6f61;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                height: auto;
+                padding: 4rem 2rem;
+                border-radius: 0;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .search-container input[type="text"] {
+                width: calc(100% - 80px);
+            }
+
+            .feature {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .screenshots-container img {
+                max-height: 200px;
+            }
+
+            footer {
+                padding: 0.5rem;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="Logo/Screenshot_2024-08-31_184847-removebg-preview.png" alt="Nomadica AI Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#info">Information</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+        </nav>
+        <h1>NerdNook Presents</h1>
+        <h1>Nomadica AI</h1>
+        <p>"Explore the world with confidence and clarity—let Nomadica AI be your guide to new horizons."</p>
+        <p>"ㅤ"</p>
+
+        <p>Try Out Our App...</p>
+
+
+        <a href="app-debug (1).apk" class="cta-button">Download our App</a>
+    </header>
+
+    <section id="home" class="section">
+        <div class="content">
+            <h2>Explore the World with Ease</h2>
+            <p>Discover new places with our innovative virtual tour guide app.</p>
+        </div>
+    </section>
+    <section id="home" class="section">
+        <div class="content">
+            <h2>Why to Chooose Nomadica AI?</h2>
+            <p>Nomadica AI is a travel assistant designed to make your journeys smoother and more enjoyable. Whether you're looking for the best restaurants, need help navigating a new city, or want to book an eco-friendly accommodation, our app is here to assist you every step of the way.</p>
+        </div>
+    </section>
+    <section id="features" class="section">
+        <div class="content">
+            <h2>How to use?</h2>
+            <div class="feature">
+                <h3>Download and Install the App</h3>
+                <p class="left-align">
+                    - Start by downloading Nomadica AI from the Google Play Store or the app's official website.<br>
+                    - Once the download is complete, install the app on your device by following the on-screen instructions.
+                </p>
+            </div>
+            <div class="feature">
+                <h3>Log In</h3>
+                <p class="left-align">
+                    - Open the app and simply login with your Google Account.<br>
+                    - If already registered to Application no need to login.
+                </p>
+            </div>
+            <div class="feature">
+                <h3>Explore the Main Features</h3>
+                <p class="left-align">
+                    - The home screen provides access to all the main features of Nomadica AI, such as Search, Booking, Voice Assistant, Emergency Services, and more.<br>
+                    - Use the Search feature to find destinations, accommodations, and e-vehicle options.<br>
+                    - The Booking option allows you to reserve accommodations or e-vehicles by selecting your destination and preferred service.
+                </p>
+            </div>
+            <div class="feature">
+                <h3>Utilize the AI-Powered Voice Assistant</h3>
+                <p class="left-align">
+                    - Activate the voice assistant by tapping the microphone icon or using the wake word if enabled.<br>
+                    - Speak your request, such as “Find hotels near me,” “Book an e-vehicle to the airport,” or “What’s the weather like in Delhi?”<br>
+                    - The voice assistant will respond to your queries and guide you through the process.
+                </p>
+            </div>
+            <div class="feature">
+                <h3>Emergency Services and SOS Activation</h3>
+                <p class="left-align">
+                    - Access emergency services by clicking on the Emergency Services button on the home screen.<br>
+                    - Use the SOS Button to automatically send an emergency alert with your location to your pre-selected contacts.<br>
+                    - You can also call specific emergency services (Police, Ambulance, Fire) directly from the app by selecting the respective option.
+                </p>
+            </div>
+            <div class="feature">
+                <h3>Customize Settings</h3>
+                <p class="left-align">
+                    - Navigate to the settings menu to customize the app according to your preferences.<br>
+                    - Adjust notification settings, language preferences, and update your emergency contact information if needed.
+                </p>
+            </div>
+            <div class="feature">
+                <h3>Log Out or Switch Users</h3>
+                <p class="left-align">
+                    - When you’re done using the app, log out from the account section if needed.<br>
+                    - The app also allows switching between multiple user profiles if more than one person uses the device.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="screenshots" class="section">
+        <div class="content">
+            <h2>App Screenshots</h2>
+            <div class="screenshots-container">
+                <img src="Screenshots/IMG-20240901-WA0016.jpg" alt="App Screenshot 1">
+                <img src="Screenshots/IMG-20240901-WA0017.jpg" alt="App Screenshot 2">
+                <img src="Screenshots/IMG-20240901-WA0018.jpg" alt="App Screenshot 3">
+                <img src="Screenshots/IMG-20240901-WA0018.jpg" alt="App Screenshot 3">
+                
+
+                <!-- Add more screenshots as needed -->
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <div class="content">
+            <h2>Features</h2>
+            <div class="feature">
+                <h3>Emergency Contact</h3>
+                <p>Get instant access to emergency contacts wherever you are.</p>
+            </div>
+            <div class="feature">
+                <h3>Live Location</h3>
+                <p>Share your live location with friends and family for safety and convenience.</p>
+            </div>
+            <div class="feature">
+                <h3>Weather Conditions</h3>
+                <p>Shows the weather of 7 days.</p>
+            </div>
+            <div class="feature">
+                <h3>Booking System</h3>
+                <p>book any plan without hustle.</p>
+            </div>
+            <div class="feature">
+                <h3>AI powered Voice Assistant</h3>
+                <p>Our Voice Assistant powered by ChatGPT and Gemini Ai inhences your work.</p>
+            </div>
+            <div class="feature">
+                <h3>Emergency Services</h3>
+                <p>In case of Emergency we are with you.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="home" class="section">
+        <div class="content">
+            <h2>About us</h2>
+            <p>Nomadica AI is a cutting-edge travel companion designed to simplify and enhance your journey. We are a passionate team of tech enthusiasts and travel experts dedicated to merging the latest advancements in artificial intelligence with the needs of modern travelers. Our mission is to make travel more accessible, sustainable, and enjoyable for everyone.
+
+                Nomadica AI offers a seamless experience by providing personalized recommendations, efficient booking options, and real-time assistance through our AI-powered voice assistant. Whether you're looking to book an eco-friendly vehicle, find budget accommodations, or stay informed about local weather and emergency services, Nomadica AI is your all-in-one solution.
+                
+                We prioritize user safety with built-in emergency services and SOS features, ensuring you can travel with peace of mind. Our commitment to sustainability is reflected in our focus on eco-friendly travel options, helping you make greener choices without compromising on convenience.
+                
+                Join us on this journey to revolutionize travel with technology that understands and caters to your needs. At Nomadica AI, we believe that travel should be as effortless and enjoyable as possible, and we're here to make that a reality.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Copyright &copy; 2024 NerdNook. All rights reserved.</p>
+        <p>Follow us on:
+            <a href="https://facebook.com/NomadicaAI">Facebook</a> |
+            <a href="https://twitter.com/NomadicaAI">Twitter</a> |
+            <a href="https://instagram.com/Nomadica.ai">Instagram</a>
+        </p>
+    </footer>
+
+    <script>
+        // Scroll fade-in effect
+        document.addEventListener("DOMContentLoaded", function () {
+            const elements = document.querySelectorAll("header, .search-container, .cta-button, section, .feature");
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+
+</html>
